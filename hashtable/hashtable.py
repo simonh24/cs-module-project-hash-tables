@@ -38,7 +38,7 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        return len(self.storage)
+        return self.capacity
 
     def get_load_factor(self):
         """
@@ -47,7 +47,13 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        loadf = self.count / self.get_num_slots
+        loadf = self.count / self.get_num_slots()
+        if loadf > 0.7:
+           new_cap = self.capacity * 2
+           self.resize(new_cap)
+        elif loadf < 0.2 and self.capacity > MIN_CAPACITY:
+            new_cap = self.capacity / 2
+            self.resize(new_cap)
         return loadf
 
 
@@ -164,25 +170,31 @@ class HashTable:
         """
         # Your code here
         old_storage = self.storage
-        if new_capacity is None:
-            if self.get_load_factor > 0.7:
-                self.capacity *= 2
-                self.storage = [None] * self.capacity
-                for i in old_storage:
-                    self.put(i.key, i.value)
-            elif self.get_load_factor < 0.2:
-                self.capacity = self.capacity / 2
-                for i in old_storage:
-                    while i is not None:
-                        self.put(i.key, i.value)
-                        i = i.next
-        else:
-            self.capacity = new_capacity
-            self.storage = [None] * self.capacity
-            for i in old_storage:
-                while i is not None:
-                    self.put(i.key, i.value)
-                    i = i.next
+        # if new_capacity is None:
+        #     if self.get_load_factor() > 0.7:
+        #         self.capacity *= 2
+        #         self.storage = [None] * self.capacity
+        #         for i in old_storage:
+        #             self.put(i.key, i.value)
+        #     elif self.get_load_factor() < 0.2:
+        #         self.capacity = self.capacity / 2
+        #         for i in old_storage:
+        #             while i is not None:
+        #                 self.put(i.key, i.value)
+        #                 i = i.next
+        # else:
+        #     self.capacity = new_capacity
+        #     self.storage = [None] * self.capacity
+        #     for i in old_storage:
+        #         while i is not None:
+        #             self.put(i.key, i.value)
+        #             i = i.next
+        self.capacity = new_capacity
+        self.storage = [None] * self.capacity
+        for i in old_storage:
+            while i is not None:
+                self.put(i.key, i.value)
+                i = i.next
 
 
 if __name__ == "__main__":
