@@ -7,7 +7,11 @@ def word_count(s):
         return {}
     else:
         split_string = trimmed.split()
-        out = {word:split_string.count(word) for word in split_string}
+        for word in split_string:
+            if word not in out:
+                out[word] = 1
+            else:
+                out[word] += 1
     return out
 
 if __name__ == "__main__":
