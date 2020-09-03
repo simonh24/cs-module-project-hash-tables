@@ -1,6 +1,17 @@
 def no_dups(s):
     # Your code here
-
+    out_string = ""
+    if s == "":
+        return ""
+    else:
+        split_string = s.split()
+        out = {word:split_string.count(word) for word in split_string}
+    for ind, words in enumerate(out.keys()):
+        if ind == len(out.keys()) - 1:
+            out_string += words
+        else:
+            out_string += f"{words} "
+    return out_string
 
 
 if __name__ == "__main__":

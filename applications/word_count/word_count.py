@@ -1,7 +1,18 @@
 def word_count(s):
     # Your code here
-
-
+    out = {}
+    s = s.lower()
+    trimmed = s.replace("\"", "").replace(":", "").replace(";", "").replace(",", "").replace(".", "").replace("-", "").replace("+", "").replace("=", "").replace("/", "").replace("\\", "").replace("|", "").replace("[", "").replace("]", "").replace("{", "").replace("}", "").replace("(", "").replace(")", "").replace("*", "").replace("^", "").replace("&", "")
+    if trimmed == "":
+        return {}
+    else:
+        split_string = trimmed.split()
+        for word in split_string:
+            if word not in out:
+                out[word] = 1
+            else:
+                out[word] += 1
+    return out
 
 if __name__ == "__main__":
     print(word_count(""))
